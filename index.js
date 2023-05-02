@@ -1,6 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const route = require("./router/routes");
 const app = express();
+
+app.use(express.json())
 
 const PORT = 3000;
 const server = app.listen(PORT, () => {
@@ -14,6 +17,8 @@ mongoose
     .connect(DB_URL)
     .then(() => console.log(`MongoDB is connected.`))
     .catch((err) => console.log(err));
+
+app.use("/", route);
 
 // Serve static files from the public directory
 app.use(express.static("public"));
